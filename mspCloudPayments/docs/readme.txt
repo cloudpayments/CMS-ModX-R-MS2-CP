@@ -1,5 +1,7 @@
 --------------------
-CloudPayments payment method for miniShop2
-
+CMS-ModX-R-MS2-CP / mspCloudPayments
 --------------------
- © CloudPayments
+
+CloudPayments module for ModX Revolution Minishop2
+
+© CloudPayments
