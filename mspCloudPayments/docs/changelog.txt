@@ -1,5 +1,9 @@
 Changelog for mspCloudPayments.
 
-1.0.0 pl
+1.0.1 pl (26.02.2018)
+==============
+- Initial release.
+
+1.0.0 pl (12.12.2017)
 ==============
 - Initial release.

@@ -10,20 +10,6 @@ if ($modx->getDebug()) {
         '[miniShop2:CloudPayments] Payment notification request: ' . print_r($_REQUEST, true));
 }
 
-$allowIps = array(
-    '130.193.70.192',
-    '185.98.85.109'
-);
-
-if (!in_array($_SERVER['REMOTE_ADDR'], $allowIps)) {
-    $modx->log(xPDO::LOG_LEVEL_ERROR,
-        '[miniShop2:CloudPayments] Request from prohibited IP ' . $_SERVER['REMOTE_ADDR'] .
-        ' Request: ' . print_r($_REQUEST, true)
-    );
-    echo json_encode(array('code' => 13));
-    die();
-}
-
 /* @var miniShop2 $miniShop2 */
 $miniShop2 = $modx->getService('minishop2', 'miniShop2', $modx->getOption('minishop2.core_path', null,
         $modx->getOption('core_path') . 'components/minishop2/') . 'model/minishop2/', array());
