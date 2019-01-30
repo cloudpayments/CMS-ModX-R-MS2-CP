@@ -6,15 +6,20 @@
 
 В личном кабинете CloudPayments в настройках сайта необходимо включить следующие уведомления:
 
-**Сheck** — http://domain.ru//assets/components/minishop2/payment/cloudpayments.php?ms2_action=check
+**Сheck**  
+`http://domain.ru/assets/components/minishop2/payment/cloudpayments.php?ms2_action=check`
 
-**Pay** — http://domain.ru//assets/components/minishop2/payment/cloudpayments.php?ms2_action=pay
+**Pay**  
+`http://domain.ru/assets/components/minishop2/payment/cloudpayments.php?ms2_action=pay`
 
-**Fail** — http://domain.ru//assets/components/minishop2/payment/cloudpayments.php?ms2_action=fail
+**Fail**  
+`http://domain.ru/assets/components/minishop2/payment/cloudpayments.php?ms2_action=fail`
 
-**Confirm** — http://domain.ru//assets/components/minishop2/payment/cloudpayments.php?ms2_action=confirm
+**Confirm**  
+`http://domain.ru/assets/components/minishop2/payment/cloudpayments.php?ms2_action=confirm`
 
-**Refund**(Требуется только при двухстадийной оплате) — http://domain.ru//assets/components/minishop2/payment/cloudpayments.php?ms2_action=refund
+**Refund**(Требуется только при двухстадийной оплате)  
+`http://domain.ru/assets/components/minishop2/payment/cloudpayments.php?ms2_action=refund`
 
 Где **domain.ru** доменное имя вашего сайта. Во всех случаях требуется выбирать вариант по умолчанию: кодировка — UTF-8, HTTP-метод — POST, формат — CloudPayments
 
@@ -61,7 +66,7 @@
 
 **Ставка НДС для доставки** — Указание отдельной ставки НДС для доставки. Если доставка платная, то она в чеке оформляется отдельной строкой со своей ставкой НДС. Значения аналогично ставке НДС для товаров.
 
-**Система налогообложения** — Тип системы налогообложения. Возможные значения перечислены в документации CloudPayments https://cloudpayments.ru/Docs/Directory#taxation-system
+**Система налогообложения** — Тип системы налогообложения. Возможные значения перечислены в [документации CloudPayments](https://cloudpayments.ru/wiki/integration/instrumenti/spravochniki#taxation_system)
 
 ### Опционально
 
@@ -84,5 +89,5 @@ toPlaceholder — имя плейсходера. При указании выв�
 1. Загрузить в любую подпапку modx (например mspCloudPayments)
 2. Скопировать build.config.example.php в build.config.php
 3. Поправить путь MODX_BASE_PATH в build.config.php (должен быть на корень установки modx)
-4. Запустить http://domain.ru/mspCloudPayments/_build/build.transport.php
+4. Запустить `http://domain.ru/mspCloudPayments/_build/build.transport.php`
 5. Пакет должен появится в списке пакетов в разделе "Управление пакетами"
