@@ -18,6 +18,11 @@ $tmp = array(
         'xtype' => 'text-password',
         'area' => 'ms2_payment_cloudpayments',
     ),
+    'ms2_payment_cloudpayments_skin' => array(
+            'value' => '',
+            'xtype' => 'textfield',
+            'area' => 'ms2_payment_cloudpayments'
+        ),
     'ms2_payment_cloudpayments_currency' => array(
         'value' => 'RUB',
         'xtype' => 'textfield',

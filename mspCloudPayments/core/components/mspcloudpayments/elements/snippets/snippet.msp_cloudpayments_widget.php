@@ -51,6 +51,7 @@ $params = array(
     'description'     => $modx->lexicon('ms2_payment_cloudpayments_order_description', $order->toArray()),
     'currency'        => $modx->getOption('ms2_payment_cloudpayments_currency', null, 'RUB'),
     'language'        => $modx->getOption('ms2_payment_cloudpayments_language', null, 'ru-RU'),
+    'skin'            => $modx->getOption('ms2_payment_cloudpayments_skin', null, 'classic'),
     'email'           => $profile->get('email'),
     'receiver'        => $address->get('receiver'),
     'phone'           => $address->get('phone'),
@@ -80,10 +81,11 @@ $data = array(
 
 if ($modx->getOption('ms2_payment_cloudpayments_kkt')) {
     $receiptData = array(
-        'Items'          => array(),
-        'taxationSystem' => $params['taxation_system'],
-        'email'          => $params['email'],
-        'phone'          => $params['phone']
+        'Items'           => array(),
+        'taxationSystem'  => $params['taxation_system'],
+        'calculationPlace'=>'www.'.$_SERVER['SERVER_NAME'],
+        'email'           => $params['email'],
+        'phone'           => $params['phone']
     );
 
     $products = $pdoFetch->getCollection('msOrderProduct', json_encode(array('order_id' => $id)), array(
@@ -160,7 +162,8 @@ if (!empty($successId)) {
 }
 
 $scriptChunks   = array();
-$scriptChunks[] = '<script src="https://widget.cloudpayments.ru/bundles/cloudpayments"></script>';
+$scriptChunks[] = '<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>';
+$scriptChunks[] = '<script src="https://widget.cloudpayments.ru/bundles/cloudpayments?cms=ModxMS2"></script>';
 $scriptChunks[] = <<<SCRIPT
 <script>
     this.pay = function () {
@@ -173,6 +176,7 @@ $scriptChunks[] = <<<SCRIPT
                 invoiceId: '{$params['invoiceId']}',
                 accountId: '{$params['accountId']}',
                 email: '{$params['email']}',
+                skin: '{$params['skin']}',
                 data: {$data}
             },
             function (options) { // success

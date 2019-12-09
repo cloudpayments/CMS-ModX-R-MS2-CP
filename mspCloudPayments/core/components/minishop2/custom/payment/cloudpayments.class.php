@@ -27,6 +27,7 @@ class CloudPayments extends msPaymentHandler implements msPaymentInterface
         $this->config = array_merge(array(
             'public_id'             => $this->modx->getOption($configPrefix . 'public_id'),
             'secret_key'            => $this->modx->getOption($configPrefix . 'secret_key'),
+            'skin'                  => $this->modx->getOption($configPrefix . 'skin', null, 'classic'),
             'currency'              => $this->modx->getOption($configPrefix . 'currency', null, 'RUR'),
             'status_auth_id'        => $this->modx->getOption($configPrefix . 'order_status_auth_id', null, 2),
             'status_pay_id'         => $this->modx->getOption($configPrefix . 'order_status_pay_id', null, 2),
@@ -109,7 +110,7 @@ class CloudPayments extends msPaymentHandler implements msPaymentInterface
             'ms2_action',
             'InvoiceId',
             'Amount',
-            'Currency',
+            //'Currency',
         );
 
         foreach ($requiredFields as $field) {
@@ -160,7 +161,9 @@ class CloudPayments extends msPaymentHandler implements msPaymentInterface
             $newStatus = $this->config['status_fail_id'];
         } elseif ($params['ms2_action'] == 'refund') {
             $newStatus = $this->config['status_refund_id'];
-        }
+        } elseif ($params['ms2_action'] == 'cancel') {
+                      $newStatus = $this->config['status_fail_id'];
+                  }
 
         if ($newStatus && $order->get('status') != $newStatus) {
             if (isset($this->modx->context->key)) {
