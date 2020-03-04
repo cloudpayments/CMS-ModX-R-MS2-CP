@@ -8,7 +8,7 @@ if ($transport->xpdo) {
     switch ($options[xPDOTransport::PACKAGE_ACTION]) {
         case xPDOTransport::ACTION_INSTALL:
             $modelPath = $modx->getOption('minishop2.core_path', null,
-                    $modx->getOption('core_path') . 'components/minishop2/') . 'model/';
+            $modx->getOption('core_path') . 'components/minishop2/') . 'model/';
             $modx->addPackage('minishop2', $modelPath);
             $lang = $modx->getOption('manager_language') == 'en' ? 1 : 0;
 

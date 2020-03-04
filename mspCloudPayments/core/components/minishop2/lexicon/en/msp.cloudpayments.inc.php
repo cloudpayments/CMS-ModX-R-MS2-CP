@@ -49,3 +49,11 @@ $_lang['setting_ms2_payment_cloudpayments_cancel_id']                   = 'Cance
 $_lang['setting_ms2_payment_cloudpayments_cancel_id_desc']              = 'The customer will be sent to this page after cancel payment.';
 $_lang['setting_ms2_payment_cloudpayments_checkout_id']                 = 'Checkout page id';
 $_lang['setting_ms2_payment_cloudpayments_checkout_id_desc']            = 'The customer will be sent to this page for payment. On this page you must place widget. 0 for redirect to cart page.';
+$_lang['setting_ms2_payment_cloudpayments_calculation_method']          = 'Calculation Method';
+$_lang['setting_ms2_payment_cloudpayments_calculation_method_desc']     = 'Available values: 0-7. More details in documentation CloudPayments <a target="_blank" href="https://developers.cloudpayments.ru/#sposoby-rascheta</a>';
+$_lang['setting_ms2_payment_cloudpayments_calculation_object']          = 'Calculation Object';
+$_lang['setting_ms2_payment_cloudpayments_calculation_object_desc']     = 'Available values: 0-13. More details in documentation CloudPayments <a target="_blank" href="https://developers.cloudpayments.ru/#predmety-rascheta</a>';
+$_lang['setting_ms2_payment_cloudpayments_inn']                         = 'INN';
+$_lang['setting_ms2_payment_cloudpayments_inn_desc']                    = 'INN';
+$_lang['setting_ms2_payment_cloudpayments_order_status_delivered']   = 'Order status on delivery';
+$_lang['setting_ms2_payment_cloudpayments_order_status_delivered_desc']= 'When changing the order to this status, the check will be sent. 0 for ignore notify.';

@@ -108,6 +108,8 @@ if ($modx->getOption('ms2_payment_cloudpayments_kkt')) {
             'price'    => $row['price'],
             'quantity' => $row['count'],
             'amount'   => $row['cost'],
+	    'method'   => $modx->getOption('ms2_payment_cloudpayments_calculation_method', null, 1),
+            'object'   => $modx->getOption('ms2_payment_cloudpayments_calculation_object', null, 1),
         );
         if (!empty($vat)) {
             $item['vat'] = $vat;
@@ -120,7 +122,9 @@ if ($modx->getOption('ms2_payment_cloudpayments_kkt')) {
             'label'    => $modx->lexicon('ms2_payment_cloudpayments_order_delivery_name'),
             'price'    => $order->get('delivery_cost'),
             'quantity' => 1,
-            'amount'   => $order->get('delivery_cost')
+            'amount'   => $order->get('delivery_cost'),
+	    'method'   => $modx->getOption('ms2_payment_cloudpayments_calculation_method', null, 1),
+            'object'   => 4,
         );
 
         $vat = $modx->getOption('ms2_payment_cloudpayments_vat_delivery');

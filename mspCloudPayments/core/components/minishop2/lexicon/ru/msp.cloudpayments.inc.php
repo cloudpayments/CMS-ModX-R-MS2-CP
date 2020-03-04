@@ -49,3 +49,11 @@ $_lang['setting_ms2_payment_cloudpayments_cancel_id']                   = 'Ст�
 $_lang['setting_ms2_payment_cloudpayments_cancel_id_desc']              = 'Покупатель будет перенаправлен на указанную страницу при отмена оплаты.';
 $_lang['setting_ms2_payment_cloudpayments_checkout_id']                 = 'Страница оплаты';
 $_lang['setting_ms2_payment_cloudpayments_checkout_id_desc']            = 'Покупатель будет перенаправлен на указанную страницу для оплаты. На данной странице требуется разместить виджет. 0 для перенаправления на страницу корзины.';
+$_lang['setting_ms2_payment_cloudpayments_calculation_method']          = 'Способ расчета';
+$_lang['setting_ms2_payment_cloudpayments_calculation_method_desc']     = 'Возможные значения: 0-7. Более детальная информация в документации CloudPayments <a target="_blank" href="https://developers.cloudpayments.ru/#sposoby-rascheta</a>';
+$_lang['setting_ms2_payment_cloudpayments_calculation_object']          = 'Предмет расчета';
+$_lang['setting_ms2_payment_cloudpayments_calculation_object_desc']     = 'Возможные значения: 0-13. Более детальная информация в документации CloudPayments <a target="_blank" href="https://developers.cloudpayments.ru/#predmety-rascheta</a>';
+$_lang['setting_ms2_payment_cloudpayments_inn']                         = 'ИНН';
+$_lang['setting_ms2_payment_cloudpayments_inn_desc']                    = 'ИНН Вашей организации';
+$_lang['setting_ms2_payment_cloudpayments_order_status_delivered']   = 'Статус заказа при доставке';
+$_lang['setting_ms2_payment_cloudpayments_order_status_delivered_desc']= 'При смене заказа на данный статус будет выполнена отправка чека. 0 для игнорирования уведомления.';

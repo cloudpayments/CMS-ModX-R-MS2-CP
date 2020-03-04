@@ -19,7 +19,7 @@ $tmp = array(
         'area' => 'ms2_payment_cloudpayments',
     ),
     'ms2_payment_cloudpayments_skin' => array(
-            'value' => '',
+            'value' => 'classic',
             'xtype' => 'textfield',
             'area' => 'ms2_payment_cloudpayments'
         ),
@@ -58,6 +58,21 @@ $tmp = array(
         'xtype' => 'textfield',
         'area' => 'ms2_payment_cloudpayments',
     ),
+    'ms2_payment_cloudpayments_calculation_method' => array(
+        'value' => 1,
+        'xtype' => 'numberfield',
+        'area' => 'ms2_payment_cloudpayments',
+    ),
+    'ms2_payment_cloudpayments_calculation_object' => array(
+        'value' => 1,
+        'xtype' => 'numberfield',
+        'area' => 'ms2_payment_cloudpayments',
+    ),
+    'ms2_payment_cloudpayments_inn' => array(
+        'value' => '',
+        'xtype' => 'textfield',
+        'area' => 'ms2_payment_cloudpayments',
+    ),
     'ms2_payment_cloudpayments_order_status_auth_id' => array(
         'value' => 1,
         'xtype' => 'numberfield',
@@ -75,6 +90,11 @@ $tmp = array(
     ),
     'ms2_payment_cloudpayments_order_status_fail_id' => array(
         'value' => 4,
+        'xtype' => 'numberfield',
+        'area' => 'ms2_payment_cloudpayments',
+    ),
+    'ms2_payment_cloudpayments_order_status_delivered' => array(
+        'value' => 3,
         'xtype' => 'numberfield',
         'area' => 'ms2_payment_cloudpayments',
     ),

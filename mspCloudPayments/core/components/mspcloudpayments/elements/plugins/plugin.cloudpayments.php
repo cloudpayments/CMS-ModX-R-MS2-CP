@@ -4,10 +4,6 @@ if ($modx->event->name != 'msOnChangeOrderStatus') {
     //Wrong event
     return;
 }
-if (!$modx->getOption('ms2_payment_cloudpayments_two_steps', null, false)) {
-    //Don't use two step payments
-    return;
-}
 
 $paymentId = $order->get('payment');
 $payment   = $modx->getObject('msPayment', $paymentId);
@@ -28,8 +24,21 @@ if (!class_exists('CloudPayments')) {
     return;
 }
 
-/** @var CloudPayments $handler */
 $handler = new CloudPayments($order);
+
+if ($modx->getOption('ms2_payment_cloudpayments_kkt') && $order->get('status') == $handler->config['status_delivered']) {
+ 
+    if ($handler->config['calculation_method'] == 1 || $handler->config['calculation_method'] == 2 || $handler->config['calculation_method'] == 3) {
+        
+        $handler->sendcheckDelivered($order);
+    }
+}
+
+if (!$modx->getOption('ms2_payment_cloudpayments_two_steps', null, false)) {
+    //Don't use two step payments
+    return;
+}
+/** @var CloudPayments $handler */
 
 if (in_array($order->get('status'), $handler->config['status_for_confirm_id'])) {
     $handler->confirmPayment($order);

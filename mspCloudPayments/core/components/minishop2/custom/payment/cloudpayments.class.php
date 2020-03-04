@@ -27,6 +27,10 @@ class CloudPayments extends msPaymentHandler implements msPaymentInterface
         $this->config = array_merge(array(
             'public_id'             => $this->modx->getOption($configPrefix . 'public_id'),
             'secret_key'            => $this->modx->getOption($configPrefix . 'secret_key'),
+    	    'inn'                   => $this->modx->getOption($configPrefix . 'inn'),
+    	    'calculation_method'    => $this->modx->getOption($configPrefix . 'calculation_method'),
+    	    'calculation_object'    => $this->modx->getOption($configPrefix . 'calculation_object'),
+    	    'status_delivered'      => $this->modx->getOption($configPrefix . 'order_status_delivered', null, 2),
             'skin'                  => $this->modx->getOption($configPrefix . 'skin', null, 'classic'),
             'currency'              => $this->modx->getOption($configPrefix . 'currency', null, 'RUR'),
             'status_auth_id'        => $this->modx->getOption($configPrefix . 'order_status_auth_id', null, 2),
@@ -119,7 +123,7 @@ class CloudPayments extends msPaymentHandler implements msPaymentInterface
             }
         }
 
-        if (in_array($params['ms2_action'], array('pay', 'confirm', 'check'))) {
+        if (in_array($params['ms2_action'], array('pay', 'confirm', 'check', 'receipt'))) {
             if (!isset($params['Status'])) {
                 return $this->paymentError(self::PAYMENT_RESULT_ERROR_NOT_ACCEPTED, 'Wrong payment request', $params);
             }
@@ -128,7 +132,7 @@ class CloudPayments extends msPaymentHandler implements msPaymentInterface
                 return $this->paymentError(self::PAYMENT_RESULT_ERROR_NOT_ACCEPTED, 'Wrong status', $params);
             }
 
-            if ($params['Currency'] != $this->config['currency']) {
+            if ($params['ms2_action'] != 'receipt' && $params['Currency'] != $this->config['currency']) {
                 return $this->paymentError(self::PAYMENT_RESULT_ERROR_INVALID_COST, 'Wrong currency', $params);
             }
             if ($params['Amount'] != number_format($order->get('cost'), 2, '.', '')) {
@@ -362,7 +366,81 @@ class CloudPayments extends msPaymentHandler implements msPaymentInterface
 
         return $response !== false;
     }
+    public function sendcheckDelivered(msOrder $order)
+    {
+        $order_id = $order->get('id');
+        $vat      = $this->modx->getOption('ms2_payment_cloudpayments_vat', null, 0);
+        $vat_d    = $this->modx->getOption('ms2_payment_cloudpayments_vat_delivery', null, 0);
+        $profile  = $order->getOne('UserProfile');
+        $email    = $profile->get('email');
+        $phone    = $profile->get('phone');
 
+        $receiptData = array(
+            'Items'           => array(),
+            'taxationSystem'  => $this->modx->getOption('ms2_payment_cloudpayments_taxation_system', null, 0),
+            'calculationPlace'=>'www.'.$_SERVER['SERVER_NAME'],
+            'email'           => $email,
+            'phone'           => $phone,
+            'amounts'         => array ( 'advancePayment' => sprintf('%.2f', $order->get('cost')),), 
+        );
+        $pdo = $this->modx->getService('pdoFetch');
+        $products = $pdo->getCollection('msOrderProduct', json_encode(array('order_id' => $order_id)), array(
+            'leftJoin' => array(
+                'Product' => array(
+                    'class' => 'msProduct',
+                    'on'    => 'msOrderProduct.product_id = Product.id',
+                ),
+            ),
+            'select'   => array(
+                'msOrderProduct' => $this->modx->getSelectColumns('msOrderProduct', 'msOrderProduct', '', array('id'), true),
+                'msProduct'      => $this->modx->getSelectColumns('msProduct', 'Product', '', array('content'), true),
+            )
+        ));
+   
+        foreach ($products as $row) {
+            $title = !empty($row['name']) ? $row['name'] : $row['pagetitle'];
+            $item  = array(
+                'label'    => $title,
+                'price'    => $row['price'],
+                'quantity' => $row['count'],
+                'amount'   => $row['cost'],
+    	        'method'   => 4,
+                'object'   => $this->modx->getOption('ms2_payment_cloudpayments_calculation_object', null, 1),
+            );
+            if (!empty($vat)) {
+                $item['vat'] = $vat;
+            }
+            $receiptData['Items'][] = $item;
+        }
+
+        if ($order->get('delivery_cost') > 0) {
+            $item = array(
+                'label'    => $this->modx->lexicon('ms2_payment_cloudpayments_order_delivery_name'),
+                'price'    => $order->get('delivery_cost'),
+                'quantity' => 1,
+                'amount'   => $order->get('delivery_cost'),
+    	        'method'   => 4,
+                'object'   => 4,
+            );
+            if (!empty($vat_d)) {
+                $item['vat'] = $vat_d;
+            }
+            $receiptData['Items'][] = $item;
+        }
+        $data = array(
+            "Inn" => $this->modx->getOption('ms2_payment_cloudpayments_inn'),
+            "InvoiceId"=> $order->get('num'),
+            "Type"=> "Income",
+            'customerReceipt' => $receiptData
+        );
+        
+        $response = $this->makeRequest('kkt/receipt', array(
+            "Inn" => $this->modx->getOption('ms2_payment_cloudpayments_inn'),
+            "InvoiceId"=> $order->get('num'),
+            "Type"=> "Income",
+            'customerReceipt' => $receiptData
+        ));
+    }
     /**
      * @param string $location
      * @param array  $request
