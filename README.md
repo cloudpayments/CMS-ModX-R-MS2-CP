@@ -25,17 +25,17 @@
 
 В личном кабинете CloudPayments в настройках сайта необходимо включить следующие уведомления:
 
-**Сheck** — http://domain.ru//assets/components/minishop2/payment/cloudpayments.php?ms2_action=check
+**Сheck** — https://domain.ru/assets/components/minishop2/payment/cloudpayments.php?ms2_action=check
 
-**Pay** — http://domain.ru//assets/components/minishop2/payment/cloudpayments.php?ms2_action=pay
+**Pay** — https://domain.ru/assets/components/minishop2/payment/cloudpayments.php?ms2_action=pay
 
-**Fail** — http://domain.ru//assets/components/minishop2/payment/cloudpayments.php?ms2_action=fail
+**Fail** — https://domain.ru/assets/components/minishop2/payment/cloudpayments.php?ms2_action=fail
 
-**Confirm** — http://domain.ru//assets/components/minishop2/payment/cloudpayments.php?ms2_action=confirm
+**Confirm** — https://domain.ru/assets/components/minishop2/payment/cloudpayments.php?ms2_action=confirm
 
-**Cancel** — http://domain.ru//assets/components/minishop2/payment/cloudpayments.php?ms2_action=cancel
+**Cancel** — https://domain.ru/assets/components/minishop2/payment/cloudpayments.php?ms2_action=cancel
 
-**Refund** — http://domain.ru//assets/components/minishop2/payment/cloudpayments.php?ms2_action=refund
+**Refund** — https://domain.ru/assets/components/minishop2/payment/cloudpayments.php?ms2_action=refund
 
 Где **domain.ru** доменное имя вашего сайта. Во всех случаях требуется выбирать вариант по умолчанию: кодировка — UTF-8, HTTP-метод — POST, формат — CloudPayments
 
