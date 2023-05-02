@@ -1,7 +1,8 @@
 <?php
 define('MODX_API_MODE', true);
-require dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/index.php';
+require dirname(__FILE__, 5) . '/index.php';
 
+/** @var modX $modx */
 $modx->getService('error', 'error.modError');
 
 //Logging request if in debug mode
@@ -27,15 +28,13 @@ if (class_exists('CloudPayments')) {
         }
     }
     if (!empty($orderId)) {
-        /** @var msOrder $order */
-        $order = $modx->newObject('msOrder');
+		    /** @var msOrder $order */
+		    $order = $modx->getObject(msOrder::class, array('id' => $orderId));
         /** @var msPaymentInterface|CloudPayments $handler */
         $handler = new CloudPayments($order);
 
         $params = $_REQUEST;
 
-        /** @var msOrder $order */
-        $order = $modx->getObject('msOrder', $orderId);
         if (isset($order)) {
             $responseCode = $handler->receive($order, $params);
         } else {
