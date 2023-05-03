@@ -27,7 +27,8 @@ class CloudPayments extends msPaymentHandler implements msPaymentInterface
     {
         parent::__construct($object, $config);
         $configPrefix = 'ms2_payment_cloudpayments_';
-	      $this->modx->switchContext($object->get('context'));
+		    $ctx = $object->get('context');
+		    if (!empty($ctx)) $this->modx->switchContext($ctx);
 
         $this->config = array_merge(array(
             'public_id'             => $this->modx->getOption($configPrefix . 'public_id'),
